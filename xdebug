@@ -25,7 +25,7 @@ if [ $? -eq 0 ]; then
         echo ""
         echo "The ini file for Xdebug was not found at '$xdebug_conf_path'"
         echo "Did you install Xdebug via Homebrew?"
-        echo "For more informations: http://github.com/w00fz/xdebug-osx/blog/master/README.md"
+        echo "For more informations: http://github.com/w00fz/xdebug-osx/blob/master/README.md"
         echo ""
 
         exit 1
@@ -65,7 +65,7 @@ if [ $? -eq 0 ]; then
 else
     echo ""
     echo "Xdebug for PHP $php_version_dot was never installed or not installed via Brew."
-    echo "For more informations: http://github.com/w00fz/xdebug-osx/blog/master/README.md"
+    echo "For more informations: http://github.com/w00fz/xdebug-osx/blob/master/README.md"
     echo ""
     exit 1
 fi
