@@ -1,0 +1,71 @@
+#!/bin/bash
+# http://github.com/w00fz/xdebug-osx
+
+if [ $# -ne 1 ] || [ "$1" != "on" ] && [ "$1" != "off" ] && [ "$1" != "status" ]; then
+    echo ""
+    echo "Usage: xdebug [ on | off | status ]"
+    echo ""
+
+    exit 1
+fi
+
+command="$1"
+
+php_version_dot=$(php -r "\$v=explode('.', phpversion() ); echo implode('.', array_splice(\$v, 0, -1));")
+php_version="${php_version_dot//./}"
+
+xdebug_conf_path="/usr/local/etc/php/$php_version_dot/conf.d"
+xdebug_conf_file="ext-xdebug.ini"
+xdebug_conf=$xdebug_conf_path/$xdebug_conf_file
+
+brew list php$php_version-xdebug 2> /dev/null > /dev/null
+
+if [ $? -eq 0 ]; then
+    if [ ! -f "$xdebug_conf" ] && [ ! -f "$xdebug_conf.disabled" ]; then
+        echo ""
+        echo "The ini file for Xdebug was not found at '$xdebug_conf_path'"
+        echo "Did you install Xdebug via Homebrew?"
+        echo "For more informations: http://github.com/w00fz/xdebug-osx/blog/master/README.md"
+        echo ""
+
+        exit 1
+    else
+        STATUS="enabled"
+        if [ -f "$xdebug_conf" ] && [ -f "$xdebug_conf.disabled" ]; then
+            echo ""
+            echo "Detected both enabled and disabled Xdebug ini files. Deleting the disabled one."
+            echo ""
+
+            rm -rf "$xdebug_conf.disabled"
+            STATUS="enabled"
+        elif [ -f "$xdebug_conf.disabled" ]; then
+            STATUS="disabled"
+        fi
+
+        if [ "$command" == "on" ]; then
+            mv "$xdebug_conf.disabled" "$xdebug_conf" 2> /dev/null
+            STATUS="enabled"
+        elif [ "$command" == "off" ]; then
+            mv "$xdebug_conf" "$xdebug_conf.disabled" 2> /dev/null
+            STATUS="disabled"
+        fi
+
+        if [ "$command" != "status" ]; then
+            echo ""
+            echo "Xdebug has been $STATUS, restarting apache (it might ask for your password)"
+
+            sudo pkill -9 httpd
+            sudo apachectl -k restart > /dev/null 2>&1
+        fi
+
+        echo ""
+        echo "You are running PHP v$php_version_dot with Xdebug $STATUS"
+        echo ""
+    fi
+else
+    echo ""
+    echo "Xdebug for PHP $php_version_dot was never installed or not installed via Brew."
+    echo "For more informations: http://github.com/w00fz/xdebug-osx/blog/master/README.md"
+    echo ""
+    exit 1
+fi
