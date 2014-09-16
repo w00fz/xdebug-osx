@@ -1,14 +1,6 @@
 #!/bin/bash
 # http://github.com/w00fz/xdebug-osx
 
-if [ $# -ne 1 ] || [ "$1" != "on" ] && [ "$1" != "off" ] && [ "$1" != "status" ]; then
-    echo ""
-    echo "Usage: xdebug [ on | off | status ]"
-    echo ""
-
-    exit 1
-fi
-
 command="$1"
 
 php_version_dot=$(php -r "\$v=explode('.', phpversion() ); echo implode('.', array_splice(\$v, 0, -1));")
@@ -42,20 +34,23 @@ if [ $? -eq 0 ]; then
             STATUS="disabled"
         fi
 
-        if [ "$command" == "on" ]; then
-            mv "$xdebug_conf.disabled" "$xdebug_conf" 2> /dev/null
-            STATUS="enabled"
-        elif [ "$command" == "off" ]; then
-            mv "$xdebug_conf" "$xdebug_conf.disabled" 2> /dev/null
-            STATUS="disabled"
-        fi
+        if [ $# -eq 1 ] && [ "$1" == "on" ] || [ "$1" == "off" ]; then
+            if [ "$command" == "on" ]; then
+                mv "$xdebug_conf.disabled" "$xdebug_conf" 2> /dev/null
+                STATUS="enabled"
+            elif [ "$command" == "off" ]; then
+                mv "$xdebug_conf" "$xdebug_conf.disabled" 2> /dev/null
+                STATUS="disabled"
+            fi
 
-        if [ "$command" != "status" ]; then
             echo ""
             echo "Xdebug has been $STATUS, restarting apache (it might ask for your password)"
 
             sudo pkill -9 httpd
             sudo apachectl -k restart > /dev/null 2>&1
+        else
+            echo ""
+            echo "Usage: xdebug [ on | off ]"
         fi
 
         echo ""
