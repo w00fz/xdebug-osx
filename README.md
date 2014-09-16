@@ -2,9 +2,9 @@
 
 ![](screenshot.jpg "Usage Example")
 
-[Xdebug][xdebug] is a must have extension for php but the times you don't need it, it's a drag.
+[Xdebug][xdebug] is a must have extension for PHP, although the times you don't actually need it, it's a drag.
 
-This simple script allows to toggle `on` and `off` [Xdebug][xdebug] and is meant for all the users who have `PHP` and `Xdebug` installed via [Homebrew][brew].
+This simple script allows to toggle `on` and `off` [Xdebug][xdebug] and is meant for anyone running `PHP` and `Xdebug` installed via [Homebrew][brew].
 
 You can follow the _OS X Apache Setup_ guide, divided in two parts, to get the perfect MAMP setup on OSX:
 
@@ -39,9 +39,9 @@ ln -s `pwd`/xdebug /usr/local/bin/xdebug
 
 ## Usage
 ```
-./xdebug-osx/xdebug on
-./xdebug-osx/xdebug off
-./xdebug-osx/xdebug status
+./xdebug-osx/xdebug       # outputs the current status
+./xdebug-osx/xdebug on    # enables xdebug
+./xdebug-osx/xdebug off   # disables xdebug
 ```
 
 ## License
