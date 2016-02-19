@@ -37,6 +37,12 @@ cd xdebug-osx
 ln -s `pwd`/xdebug /usr/local/bin/xdebug
 ```
 
+## Make sure `xdebug` is executable
+
+```
+chmod +x /usr/local/bin/xdebug
+```
+
 ## Usage
 ```
 ./xdebug-osx/xdebug       # outputs the current status
