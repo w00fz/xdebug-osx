@@ -1,5 +1,9 @@
 #!/bin/bash
 # http://github.com/w00fz/xdebug-osx
+#
+# @author   Djamil Legato http://github.com/w00fz/xdebug-osx
+# @license  MIT
+# @version  1.0
 
 command="$1"
 
