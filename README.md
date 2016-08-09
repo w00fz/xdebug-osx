@@ -19,6 +19,12 @@ You can follow the _OS X Apache Setup_ guide, divided in two parts, to get the p
 curl -L https://raw.githubusercontent.com/w00fz/xdebug-osx/master/xdebug > /usr/local/bin/xdebug
 ```
 
+## Installation with homebrew
+
+```
+brew install xdebug-osx
+```
+
 ## Installation with clone
 
 ```
@@ -45,9 +51,9 @@ chmod +x /usr/local/bin/xdebug
 
 ## Usage
 ```
-./xdebug-osx/xdebug       # outputs the current status
-./xdebug-osx/xdebug on    # enables xdebug
-./xdebug-osx/xdebug off   # disables xdebug
+xdebug       # outputs the current status
+xdebug on    # enables xdebug
+xdebug off   # disables xdebug
 ```
 
 ## License
