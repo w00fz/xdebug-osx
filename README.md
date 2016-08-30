@@ -1,4 +1,4 @@
-# Xdebug toggler for OSX
+# Xdebug Toggler for OSX
 
 ![](screenshot.jpg "Usage Example")
 
@@ -16,7 +16,7 @@ You can follow the _OS X Apache Setup_ guide, divided in two parts, to get the p
 ## Quick Installation
 
 ```
-curl -L https://raw.githubusercontent.com/w00fz/xdebug-osx/master/xdebug > /usr/local/bin/xdebug
+curl -L https://raw.githubusercontent.com/w00fz/xdebug-osx/master/xdebug-toggle > /usr/local/bin/xdebug-toggle
 ```
 
 ## Installation with homebrew
@@ -40,20 +40,20 @@ You may need to restart your shell for this to take effect, or refrehs it with `
 If you want the global command then run:
 ```
 cd xdebug-osx
-ln -s `pwd`/xdebug /usr/local/bin/xdebug
+ln -s `pwd`/xdebug-toggle /usr/local/bin/xdebug-toggle
 ```
 
-## Make sure `xdebug` is executable
+## Make sure `xdebug-toggle` is executable
 
 ```
-chmod +x /usr/local/bin/xdebug
+chmod +x /usr/local/bin/xdebug-toggle
 ```
 
 ## Usage
 ```
-xdebug       # outputs the current status
-xdebug on    # enables xdebug
-xdebug off   # disables xdebug
+xdebug-toggle       # outputs the current status
+xdebug-toggle on    # enables xdebug
+xdebug-toggle off   # disables xdebug
 ```
 
 ## License
