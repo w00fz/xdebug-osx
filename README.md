@@ -1,6 +1,6 @@
 # Xdebug Toggler for OSX
 
-![](screenshot.jpg "Usage Example")
+![](screenshot.png "Usage Example")
 
 [Xdebug][xdebug] is a must have extension for PHP, although the times you don't actually need it, it's a drag.
 
