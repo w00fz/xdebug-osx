@@ -5,6 +5,7 @@
 # @license  MIT
 # @version  1.0
 
+app="$(basename $0)"
 command="$1"
 
 php_version_dot=$(php -r "\$v=explode('.', phpversion() ); echo implode('.', array_splice(\$v, 0, -1));")
@@ -47,14 +48,22 @@ if [ $? -eq 0 ]; then
                 STATUS="disabled"
             fi
 
-            echo ""
-            echo "Xdebug has been $STATUS, restarting apache (it might ask for your password)"
+            if [ -f ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist ]; then
+                echo ""
+                echo "Xdebug has been $STATUS, restarting nginx"
 
-            sudo pkill -9 httpd
-            sudo apachectl -k restart > /dev/null 2>&1
+                launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist
+                launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist
+            else
+                echo ""
+                echo "Xdebug has been $STATUS, restarting apache (it might ask for your password)"
+
+                sudo pkill -9 httpd
+                sudo apachectl -k restart > /dev/null 2>&1
+            fi
         else
             echo ""
-            echo "Usage: xdebug [ on | off ]"
+            echo "Usage: ${app} [ on | off ]"
         fi
 
         echo ""
