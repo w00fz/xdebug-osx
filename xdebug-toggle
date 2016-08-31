@@ -50,7 +50,7 @@ if [ $? -eq 0 ]; then
 
             if [ -f ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist ]; then
                 echo ""
-                echo "Xdebug has been $STATUS, restarting nginx"
+                echo "Xdebug has been $STATUS, restarting php-fpm"
 
                 launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist
                 launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist
