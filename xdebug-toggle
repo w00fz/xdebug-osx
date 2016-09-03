@@ -3,7 +3,7 @@
 #
 # @author   Djamil Legato http://github.com/w00fz/xdebug-osx
 # @license  MIT
-# @version  1.1
+# @version  1.2
 
 app="$(basename $0)"
 command="$1"
