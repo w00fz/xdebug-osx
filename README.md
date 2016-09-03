@@ -51,9 +51,10 @@ chmod +x /usr/local/bin/xdebug-toggle
 
 ## Usage
 ```
-xdebug-toggle       # outputs the current status
-xdebug-toggle on    # enables xdebug
-xdebug-toggle off   # disables xdebug
+xdebug-toggle                            # outputs the current status
+xdebug-toggle on                         # enables xdebug
+xdebug-toggle off                        # disables xdebug
+xdebug-toggle on|off --no-server-restart # toggles xdebug without restarting apache or php-fpm
 ```
 
 ## License
