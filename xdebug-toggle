@@ -39,7 +39,7 @@ if [ $? -eq 0 ]; then
             STATUS="disabled"
         fi
 
-        if [ $# -eq 1 ] && [ "$1" == "on" ] || [ "$1" == "off" ]; then
+        if [ $# -ge 1 ] && [ "$1" == "on" ] || [ "$1" == "off" ]; then
             if [ "$command" == "on" ]; then
                 mv "$xdebug_conf.disabled" "$xdebug_conf" 2> /dev/null
                 STATUS="enabled"
@@ -48,18 +48,31 @@ if [ $? -eq 0 ]; then
                 STATUS="disabled"
             fi
 
+            IS_PHP_FPM=false
+            SERVER_NAME="apache"
+
             if [ -f ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist ]; then
-                echo ""
-                echo "Xdebug has been $STATUS, restarting php-fpm"
+                IS_PHP_FPM=true
+                SERVER_NAME="php-fpm"
+            fi
 
-                launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist
-                launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist
+            if [ "$2" == '--no-server-restart' ]; then
+                echo ""
+                echo "Xdebug has been $STATUS. Will not restart $SERVER_NAME"
             else
-                echo ""
-                echo "Xdebug has been $STATUS, restarting apache (it might ask for your password)"
+                if [ "$IS_PHP_FPM" == true ]; then
+                    echo ""
+                    echo "Xdebug has been $STATUS, restarting $SERVER_NAME"
 
-                sudo pkill -9 httpd
-                sudo apachectl -k restart > /dev/null 2>&1
+                    launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist
+                    launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist
+                else
+                    echo ""
+                    echo "Xdebug has been $STATUS, restarting $SERVER_NAME (it might ask for your password)"
+
+                    sudo pkill -9 httpd
+                    sudo apachectl -k restart > /dev/null 2>&1
+                fi
             fi
         else
             echo ""
