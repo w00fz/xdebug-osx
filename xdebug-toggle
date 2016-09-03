@@ -7,6 +7,7 @@
 
 app="$(basename $0)"
 command="$1"
+options="$2"
 
 php_version_dot=$(php -r "\$v=explode('.', phpversion() ); echo implode('.', array_splice(\$v, 0, -1));")
 php_version="${php_version_dot//./}"
@@ -28,6 +29,9 @@ if [ $? -eq 0 ]; then
         exit 1
     else
         STATUS="enabled"
+        IS_PHP_FPM=false
+        SERVER_NAME="apache"
+
         if [ -f "$xdebug_conf" ] && [ -f "$xdebug_conf.disabled" ]; then
             echo ""
             echo "Detected both enabled and disabled Xdebug ini files. Deleting the disabled one."
@@ -39,7 +43,7 @@ if [ $? -eq 0 ]; then
             STATUS="disabled"
         fi
 
-        if [ $# -ge 1 ] && [ "$1" == "on" ] || [ "$1" == "off" ]; then
+        if [ $# -ge 1 ] && [ "$command" == "on" ] || [ "$command" == "off" ]; then
             if [ "$command" == "on" ]; then
                 mv "$xdebug_conf.disabled" "$xdebug_conf" 2> /dev/null
                 STATUS="enabled"
@@ -48,15 +52,12 @@ if [ $? -eq 0 ]; then
                 STATUS="disabled"
             fi
 
-            IS_PHP_FPM=false
-            SERVER_NAME="apache"
-
             if [ -f ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist ]; then
                 IS_PHP_FPM=true
                 SERVER_NAME="php-fpm"
             fi
 
-            if [ "$2" == '--no-server-restart' ]; then
+            if [ "$options" == '--no-server-restart' ]; then
                 echo ""
                 echo "Xdebug has been $STATUS. Will not restart $SERVER_NAME"
             else
@@ -76,7 +77,7 @@ if [ $? -eq 0 ]; then
             fi
         else
             echo ""
-            echo "Usage: ${app} [ on | off ]"
+            echo "Usage: ${app} <on | off> [--no-server-restart]"
         fi
 
         echo ""
