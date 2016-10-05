@@ -11,7 +11,8 @@ You can follow the _OS X Apache Setup_ guide, divided in two parts, to get the p
 * [Part 1: Multiple PHP Versions][tutorial-1]
 * [Part 2: MySQL, APC & More...][tutorial-2]
 
->> This script is inspired by the great [sphp][sphp] script. Which I highly suggest to install if you need to switch easily between php versions
+>> This script is inspired by the great [sphp][sphp] script. Which I highly suggest to install if you need to switch easily between php versions.
+>> However since it's been quite inactive I am now running and maintaning my own implementation. You can get it from https://gist.github.com/w00fz/142b6b19750ea6979137b963df959d11
 
 ## Quick Installation
 
