@@ -36,7 +36,7 @@ Add `/usr/local/bin` to your `$PATH`. If you use the Bash shell, you can do this
 ```
 echo 'export PATH="/usr/local/bin:$PATH"' >> $HOME/.bashrc
 ```
-You may need to restart your shell for this to take effect, or refrehs it with `source ~/.bashrc`.
+You may need to restart your shell for this to take effect, or refresh it with `source ~/.bashrc`.
 
 If you want the global command then run:
 ```
