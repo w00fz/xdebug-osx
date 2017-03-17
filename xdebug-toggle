@@ -65,8 +65,7 @@ if [ $? -eq 0 ]; then
                     echo ""
                     echo "Xdebug has been $STATUS, restarting $SERVER_NAME"
 
-                    launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist
-                    launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist
+                    brew services restart php${php_version}
                 else
                     echo ""
                     echo "Xdebug has been $STATUS, restarting $SERVER_NAME (it might ask for your password)"
