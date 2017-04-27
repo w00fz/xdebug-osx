@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # http://github.com/w00fz/xdebug-osx
 #
 # @author   Djamil Legato http://github.com/w00fz/xdebug-osx
