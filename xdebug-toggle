@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # http://github.com/w00fz/xdebug-osx
 #
 # @author   Djamil Legato http://github.com/w00fz/xdebug-osx
 # @license  MIT
 # @version  1.2
 
-app="$(basename $0)"
+app="$(basename "$0")"
 command="$1"
 options="$2"
 
@@ -15,10 +15,9 @@ php_version="${php_version_dot//./}"
 xdebug_conf_path="$(brew --prefix)/etc/php/$php_version_dot/conf.d"
 xdebug_conf_file="ext-xdebug.ini"
 xdebug_conf=$xdebug_conf_path/$xdebug_conf_file
+function keg_exists() { brew list php"${php_version}"-xdebug 2> /dev/null > /dev/null; }
 
-brew list php$php_version-xdebug 2> /dev/null > /dev/null
-
-if [ $? -eq 0 ]; then
+if keg_exists; then
     if [ ! -f "$xdebug_conf" ] && [ ! -f "$xdebug_conf.disabled" ]; then
         echo ""
         echo "The ini file for Xdebug was not found at '$xdebug_conf_path'"
@@ -52,7 +51,7 @@ if [ $? -eq 0 ]; then
                 STATUS="disabled"
             fi
 
-            if [ -f ~/Library/LaunchAgents/homebrew.mxcl.php${php_version}.plist ]; then
+            if [ -f ~/Library/LaunchAgents/homebrew.mxcl.php"${php_version}".plist ]; then
                 IS_PHP_FPM=true
                 SERVER_NAME="php-fpm"
             fi
@@ -65,7 +64,7 @@ if [ $? -eq 0 ]; then
                     echo ""
                     echo "Xdebug has been $STATUS, restarting $SERVER_NAME"
 
-                    brew services restart php${php_version}
+                    brew services restart php"${php_version}"
                 else
                     echo ""
                     echo "Xdebug has been $STATUS, restarting $SERVER_NAME (it might ask for your password)"
