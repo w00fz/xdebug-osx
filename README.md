@@ -20,12 +20,6 @@ You can follow the _OS X Apache Setup_ guide, divided in two parts, to get the p
 curl -L https://raw.githubusercontent.com/w00fz/xdebug-osx/master/xdebug-toggle > /usr/local/bin/xdebug-toggle
 ```
 
-## Installation with homebrew
-
-```
-brew install xdebug-osx
-```
-
 ## Installation with clone
 
 ```
@@ -48,6 +42,35 @@ ln -s `pwd`/xdebug-toggle /usr/local/bin/xdebug-toggle
 
 ```
 chmod +x /usr/local/bin/xdebug-toggle
+```
+
+## Xdebug installation and configuration
+
+Homebrew does not provide a keg for Xdebug anymore, so you must install Xdebug extension via pecl
+
+```bash
+pecl channel-update pecl.php.net
+pecl install xdebug
+```
+
+`xdebug-toggle` needs a file called `ext-xdebug.ini` in brew's php conf.d directory to work, which must contain, at least, the following:
+
+```ini
+zend_extension="xdebug.so"
+```
+
+Make sure that `php.ini` doesn't contain this line too.
+
+It's recommended to keep al xdebug config in this file, as an example:
+
+```ini
+[xdebug]
+zend_extension="xdebug.so"
+
+xdebug.var_display_max_depth=24
+xdebug.remote_port=9000
+xdebug.remote_enable=1
+xdebug.remote_connect_back=1
 ```
 
 ## Usage
