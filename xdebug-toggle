@@ -16,7 +16,7 @@ xdebug_conf_file="ext-xdebug.ini"
 xdebug_conf=${xdebug_conf_path}/${xdebug_conf_file}
 extension_dir=$(php -r "echo PEAR_EXTENSION_DIR;")
 
-if [ ! -f "extension_dir"/xdebug.so ]; then
+if [ ! -f "$extension_dir"/xdebug.so ]; then
     if [ ! -f "$xdebug_conf" ] && [ ! -f "$xdebug_conf.disabled" ]; then
         echo ""
         echo "The ini file for Xdebug was not found at '$xdebug_conf_path'"
