@@ -52,7 +52,7 @@ if [ ! -f "$extension_dir"/xdebug.so ]; then
 
             current_stable_php_path="$(brew --prefix php)/bin/php"
             if [ -f $(eval echo ${current_stable_php_path}) ]; then
-                current_stable_php_version=$(${current_stable_php_path} -r "\$v=explode('.', PHP_VERSION ); echo implode('.', array_splice(\$v, 0, -1));")
+                current_stable_php_version=$(${current_stable_php_path} -dxdebug.mode=off -r "\$v=explode('.', PHP_VERSION ); echo implode('.', array_splice(\$v, 0, -1));")
             fi
 
             php_plist_file="~/Library/LaunchAgents/homebrew.mxcl.php@$php_version_dot.plist"
